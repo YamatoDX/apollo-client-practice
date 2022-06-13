@@ -4,6 +4,6 @@
 
 @layer base {
   .btn {
-    @apply m-2 px-4 py-2 border-2 border-black bg-gray-100 shadow-md;
+    @apply m-2 px-4 py-2 border-2 border-black bg-gray-100 shadow-md rounded-xl;
   }
 }

@@ -25,20 +25,23 @@ export default function Add() {
       }
     }
   `;
-  const [addProductFunction] = useMutation(addProductMutation);
+
   const {
     data,
     loading,
     error,
     refetch: refetchAllProducts,
   } = useQuery(allProductsQuery);
+
+  const [addProductFunction] = useMutation(addProductMutation);
+
   return (
     <>
       <button
         className="btn"
-        onClick={() => {
-          addProductFunction();
-          refetchAllProducts();
+        onClick={async () => {
+          await addProductFunction();
+          await refetchAllProducts();
         }}
       >
         Click to add Product
