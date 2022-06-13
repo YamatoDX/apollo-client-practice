@@ -1,21 +1,22 @@
 import React from "react";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { useLazyQuery, gql } from "@apollo/client";
 
-export default function Home() {
+export default function Lazy() {
   const allProductsQuery = gql`
     query something {
       queryProduct {
         _id
         name
+        country
+        city
+        price
       }
     }
   `;
-  const { data, loading, error } = useQuery(allProductsQuery);
+  const [activatorFunction, { data, error, loading }] =
+    useLazyQuery(allProductsQuery);
   return (
     <>
-      <div className="text-center underline text-red-700 font-bolder">
-        hello
-      </div>
       <button
         className="btn"
         onClick={() => {
@@ -30,7 +31,14 @@ export default function Home() {
           console.log("data is", data);
         }}
       >
-        Click to see allProducts Data
+        Click to see lazy data
+      </button>
+      <button
+        onClick={() => {
+          activatorFunction();
+        }}
+      >
+        Click to activate
       </button>
     </>
   );
