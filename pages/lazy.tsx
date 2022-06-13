@@ -13,8 +13,12 @@ export default function Lazy() {
       }
     }
   `;
-  const [activatorFunction, { data, error, loading }] =
-    useLazyQuery(allProductsQuery);
+  const [activatorFunction, { data, error, loading, refetch }] = useLazyQuery(
+    allProductsQuery,
+    {
+      pollInterval: 60000,
+    }
+  );
   return (
     <>
       <button
@@ -40,6 +44,7 @@ export default function Lazy() {
       >
         Click to activate
       </button>
+      <button onClick={() => refetch()}>Click to refetch</button>
     </>
   );
 }

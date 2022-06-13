@@ -10,7 +10,9 @@ export default function Home() {
       }
     }
   `;
-  const { data, loading, error } = useQuery(allProductsQuery);
+  const { data, loading, error, refetch } = useQuery(allProductsQuery, {
+    pollInterval: 60000,
+  });
   return (
     <>
       <div className="text-center underline text-red-700 font-bolder">
@@ -32,6 +34,7 @@ export default function Home() {
       >
         Click to see allProducts Data
       </button>
+      <button onClick={() => refetch()}>Click to refetch</button>
     </>
   );
 }
