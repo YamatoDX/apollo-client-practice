@@ -15,12 +15,8 @@ export default function Variable() {
     }
   `;
   const addProductMutation = gql`
-    mutation Something(
-      $_id: String!
-      $name: String!
-      $organisationId: String!
-    ) {
-      addProduct(_id: $_id, name: $name, organisationId: $organisationId) {
+    mutation addProduct($id: ID!, $name: String!, $organisationId: String!) {
+      addProduct(_id: $id, name: $name, organisationId: $organisationId) {
         _id
         name
       }
@@ -57,7 +53,7 @@ export default function Variable() {
           try {
             const mutationResponse = await addProductFunction({
               variables: {
-                _id: "D100",
+                id: "D100",
                 name: "Sample product",
                 organisationId: "Venus",
               },
