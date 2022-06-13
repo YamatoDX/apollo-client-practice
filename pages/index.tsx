@@ -34,7 +34,9 @@ export default function Home() {
       >
         Click to see allProducts Data
       </button>
-      <button onClick={() => refetch()}>Click to refetch</button>
+      <button className="btn" onClick={() => refetch()}>
+        Click to refetch
+      </button>
     </>
   );
 }

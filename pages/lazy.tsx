@@ -38,13 +38,16 @@ export default function Lazy() {
         Click to see lazy data
       </button>
       <button
+        className="btn"
         onClick={() => {
           activatorFunction();
         }}
       >
         Click to activate
       </button>
-      <button onClick={() => refetch()}>Click to refetch</button>
+      <button className="btn" onClick={() => refetch()}>
+        Click to refetch
+      </button>
     </>
   );
 }
