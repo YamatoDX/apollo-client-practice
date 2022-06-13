@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useMutation } from "@apollo/client";
 
 export default function Variable() {
   const getProductByIdQuery = gql`
@@ -14,11 +14,28 @@ export default function Variable() {
       }
     }
   `;
+  const addProductMutation = gql`
+    mutation Something(
+      $_id: String!
+      $name: String!
+      $organisationId: String!
+    ) {
+      addProduct(_id: $_id, name: $name, organisationId: $organisationId) {
+        _id
+        name
+      }
+    }
+  `;
   const { data, error, loading, refetch } = useQuery(getProductByIdQuery, {
     variables: {
       id: "D01",
     },
   });
+  const [
+    addProductFunction,
+    { data: mutationData, loading: mutationLoading, error: mutationError },
+  ] = useMutation(addProductMutation);
+
   return (
     <>
       <button
@@ -33,6 +50,29 @@ export default function Variable() {
         }}
       >
         Click to fetch Data
+      </button>
+      <button
+        className="btn"
+        onClick={async () => {
+          try {
+            const mutationResponse = await addProductFunction({
+              variables: {
+                _id: "D100",
+                name: "Sample product",
+                organisationId: "Venus",
+              },
+            });
+            console.log("mutationResponse is", mutationResponse);
+            const refetchResponse = await refetch();
+            console.log("refetchResponse is", refetchResponse);
+          } catch (err) {
+            console.error(err);
+          } finally {
+            console.log("process finished in finally block");
+          }
+        }}
+      >
+        Click to add new Product
       </button>
     </>
   );
